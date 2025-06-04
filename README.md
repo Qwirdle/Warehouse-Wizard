@@ -26,6 +26,6 @@ Warehouse Wizard is an inventory managment software designed around simplicty an
 
 - HTML, CSS, and JavaScript for the front end
 
-- Vanilla Framework
+- Barebones CSS
 
 - SQLite for database management
