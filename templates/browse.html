@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse - Warehouse Wizard</title>
+
+    <!-- Import Barebones CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='barebones.css') }}">
+
+    <!-- Import font edits -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='font-handling.css') }}">
+</head>
+<body>
+    <main style="display: flex; justify-content: center; align-items: center; display: flex; flex-direction: column;">
+        <br>
+        
+        <h2>Browse Items</h2>
+        
+        <br>
+
+        <div>
+            <a>Next Page</a>
+            -
+            <a>Last Page</a>
+        </div>
+        <p>Page 1 / 15</p>
+
+        <div style="max-width: 1000px; width: 100%;">
+            <table class="u-full-width">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Added At</th>
+                    <th>Checked Out By</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Microcentrifuge</td>
+                    <td title="Compact device for rapid sample spinning to separate liquids." class="has-title">Compact device for rapid sample spinning to separate liquids.</td>
+                    <td>2025-05-20</td>
+                    <td title="Smith Johnson the Third or Fourth we lost track tbh" class="has-title">Smith Johnson the Third or Fourth we lost track tbh</td>
+                </tr>
+            </tbody>
+
+
+            </table>
+        </div>
+
+        <br>
+        <form method="POST" style="display: flex; flex-direction: column; align-items: center;">
+          <label for="username">Search:</label>
+          <input id="username" type="text" name="query" required style="max-width: 300px; width: 100%;" placeholder="Search here...">
+
+          <button type="submit" style="max-width: 300px; width: 100%;">Login</button>
+        </form>
+
+        <p>Developed by Qwirdle - <a href="https://github.com/Qwirdle" target="_blank" rel="noopener noreferrer">Find me here!</a></p>
+    </main>
+
+</table>
+</body>
+</html>

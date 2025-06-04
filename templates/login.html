@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warehouse Wizard</title>
+
+    <!-- Import Barebones CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='barebones.css') }}">
+
+    <!-- Import font edits -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='font-handling.css') }}">
+</head>
+<body>
+    <br>
+    <main style="display: flex; justify-content: center; align-items: center;">
+    <div style="max-width: 400px; width: 100%;">
+
+        <h2 style="text-align: center;">Warehouse Wizard</h2>
+        <form method="POST" style="display: flex; flex-direction: column; align-items: center;">
+          <label for="username">Username:</label>
+          <input id="username" type="text" name="username" required style="max-width: 300px; width: 100%;" placeholder="Username">
+
+          <label for="password">Password:</label>
+          <input id="password" type="password" name="password" required style="max-width: 300px; width: 100%;" placeholder="Password">
+
+          <button type="submit" style="max-width: 300px; width: 100%;">Login</button>
+        </form>
+
+    </div>
+  </main>
+</body>
+</html>
