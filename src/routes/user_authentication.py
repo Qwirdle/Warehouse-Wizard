@@ -6,6 +6,8 @@ from flask_wtf import *
 from __main__ import app, db, root
 from src.models import User
 
+from src.config import ORGANIZATION_NAME
+
 # MAYBE: Implement brute force security
 @app.route('/', methods=["GET", "POST"])
 def login():
@@ -40,4 +42,4 @@ def login():
                 flash("Invalid username/password", 'error')
                 return redirect(url_for('login'))
 
-    return render_template('/login.html')
+    return render_template('/login.html', TITLE = ORGANIZATION_NAME)

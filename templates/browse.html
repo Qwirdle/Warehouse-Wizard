@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Browse - Warehouse Wizard</title>
+
+    <!-- URL changes if searching/browsing -->
+    {% if not SEARCHING %}
+        <title>Page {{ PAGE_NUM }} - {{ TITLE }} - Warehouse Wizard</title>
+    {% else %}
+        <title>Searching "{{ PROMPT }}" - {{ TITLE }} - Warehouse Wizard</title>
+    {% endif %}
 
     <!-- Import Barebones CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='barebones.css') }}">
@@ -12,6 +18,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='font-handling.css') }}">
 </head>
 <body>
+
+
     <main style="display: flex; justify-content: center; align-items: center; display: flex; flex-direction: column;">
         <h2>Browse Items</h2>
 
@@ -23,22 +31,30 @@
           <button type="submit" style="max-width: 300px; width: 100%; display: hidden;">Search</button>
         </form>
 
-        <div>
+        {% if not SEARCHING %}
+            <div>
             {% if PAGE_NUM > 1 %}
-              <a href="{{ url_for('browse', page=PAGE_NUM-1) }}">Last Page</a>
+                <a href="{{ url_for('browse', page=PAGE_NUM-1) }}">Last Page</a>
             {% else %}
-              <span style="color: gray;">Last Page</span>
+                <span style="color: rgb(22, 22, 22);">Last Page</span>
             {% endif %}
-             -
+            -
             {% if PAGE_NUM < TOTAL_PAGES %}
-              <a href="{{ url_for('browse', page=PAGE_NUM+1) }}">Next Page</a>
+                <a href="{{ url_for('browse', page=PAGE_NUM+1) }}">Next Page</a>
             {% else %}
-              <span style="color: gray;">Next Page</span>
+                <span style="color: rgb(22, 22, 22);">Next Page</span>
             {% endif %}
+            </div>
 
-        </div>
+            <p>Page {{ PAGE }} / {{ TOTAL_PAGES }}</p>
+        {% else %}
+            <div>
+                <a href="{{ url_for('browse', page=1) }}">Return</a>
+            </div>
 
-        <p>Page {{ PAGE }} / {{ TOTAL_PAGES }}</p>
+            <p>Showing results for <b>"{{ PROMPT }}"</b></p>
+        {% endif %}
+
 
         <div style="max-width: 1000px; width: 100%;">
             <table class="u-full-width">

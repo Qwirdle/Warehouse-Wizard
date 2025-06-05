@@ -6,6 +6,9 @@ import os, random, math
 
 root = os.path.abspath(os.getcwd())
 
+# Import configuration
+from src.config import ORGANIZATION_NAME
+
 init(autoreset=True)
 
 app = Flask(__name__)
@@ -53,15 +56,36 @@ def logout():
     logout_user()
     return redirect(url_for("login"))
 
-@app.route('/browse/')
+@app.route('/browse/', methods=["GET", "POST"])
 @login_required
 def browse():
     user = User.query.filter_by(username=current_user.username).first()
 
+    searching = False # Switch to change what's displayed during a search
+
     # Pagination handler
     page = request.args.get('page', 1, type=int)
     per_page = 10
-    itemsPaginated = Item.query.paginate(page=page, per_page=per_page)
+    prompt = ""
+
+    # Handle searches
+    if request.method == "POST":
+        searching = True
+
+        prompt = request.form.get('query', '').strip()
+        itemSearched = Item.query.filter(Item.name.ilike(f'%{prompt}%'))
+        
+        per_page = itemSearched.count() # Show all on entries on one page for ease of access
+        print(per_page)
+
+        page = 1
+        
+        itemsPaginated = itemSearched.paginate(page=page, per_page=per_page)
+    
+    else:
+        itemsPaginated = Item.query.paginate(page=page, per_page=per_page)
+    
+    
 
     results = []
 
@@ -71,12 +95,12 @@ def browse():
             "id": item.id,
             "name": item.name,
             "description": item.description,
-            "created_at": item.created_at,
+            "created_at": item.created_at.date(),
             "user_id": item.user_id
         })
 
 
-    return render_template('browse.html', DISPLAY_INVENTORY=results, PAGE = page, TOTAL_PAGES = math.ceil(Item.query.count() / per_page), PAGE_NUM=page)
+    return render_template('browse.html', DISPLAY_INVENTORY=results, PAGE = page, TOTAL_PAGES = math.ceil(Item.query.count() / per_page), PAGE_NUM=page, SEARCHING=searching, PROMPT=prompt, TITLE=ORGANIZATION_NAME)
 
 # Redirect to index when accessing part of site without proper unauthorization
 @login_manager.unauthorized_handler

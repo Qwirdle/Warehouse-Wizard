@@ -1,0 +1,1 @@
+ORGANIZATION_NAME = "Minuteman Highschool Biotechnology"
