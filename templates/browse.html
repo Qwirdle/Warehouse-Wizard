@@ -13,18 +13,32 @@
 </head>
 <body>
     <main style="display: flex; justify-content: center; align-items: center; display: flex; flex-direction: column;">
-        <br>
-        
         <h2>Browse Items</h2>
-        
+
         <br>
 
+        <form method="POST" style="display: flex; flex-direction: column; align-items: center;">
+          <input id="username" type="text" name="query" required style="max-width: 300px; width: 100%;" placeholder="Search here...">
+
+          <button type="submit" style="max-width: 300px; width: 100%; display: hidden;">Search</button>
+        </form>
+
         <div>
-            <a>Next Page</a>
-            -
-            <a>Last Page</a>
+            {% if PAGE_NUM > 1 %}
+              <a href="{{ url_for('browse', page=PAGE_NUM-1) }}">Last Page</a>
+            {% else %}
+              <span style="color: gray;">Last Page</span>
+            {% endif %}
+             -
+            {% if PAGE_NUM < TOTAL_PAGES %}
+              <a href="{{ url_for('browse', page=PAGE_NUM+1) }}">Next Page</a>
+            {% else %}
+              <span style="color: gray;">Next Page</span>
+            {% endif %}
+
         </div>
-        <p>Page 1 / 15</p>
+
+        <p>Page {{ PAGE }} / {{ TOTAL_PAGES }}</p>
 
         <div style="max-width: 1000px; width: 100%;">
             <table class="u-full-width">
@@ -38,13 +52,15 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Microcentrifuge</td>
-                    <td title="Compact device for rapid sample spinning to separate liquids." class="has-title">Compact device for rapid sample spinning to separate liquids.</td>
-                    <td>2025-05-20</td>
-                    <td title="Smith Johnson the Third or Fourth we lost track tbh" class="has-title">Smith Johnson the Third or Fourth we lost track tbh</td>
-                </tr>
+                {% for item in DISPLAY_INVENTORY %}
+                    <tr>
+                        <td>{{item.id}}</td>
+                        <td>{{item.name}}</td>
+                        <td title="{{item.description}}" class="has-title">{{item.description}}</td>
+                        <td>{{item.created_at}}</td>
+                        <td title="{{item.user_id}}" class="has-title">{{item.user_id}}</td>
+                    </tr>
+                {% endfor %}
             </tbody>
 
 
@@ -52,14 +68,8 @@
         </div>
 
         <br>
-        <form method="POST" style="display: flex; flex-direction: column; align-items: center;">
-          <label for="username">Search:</label>
-          <input id="username" type="text" name="query" required style="max-width: 300px; width: 100%;" placeholder="Search here...">
 
-          <button type="submit" style="max-width: 300px; width: 100%;">Login</button>
-        </form>
-
-        <p>Developed by Qwirdle - <a href="https://github.com/Qwirdle" target="_blank" rel="noopener noreferrer">Find me here!</a></p>
+        <p>Developed by <a href="https://github.com/Qwirdle" target="_blank" rel="noopener noreferrer">Qwirdle</a></p>
     </main>
 
 </table>

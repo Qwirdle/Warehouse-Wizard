@@ -22,7 +22,7 @@ def login():
             user = User.query.filter_by(username=request.form.get("username")).first()
             login_user(user)
 
-            return render_template('browse.html')
+            return redirect(url_for("browse"))
         
         else:
             usernameExists = User.query.filter_by(username=request.form.get("username")).first()

@@ -1,6 +1,19 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   color: #222;
+  background: linear-gradient(270deg, #d6f0f5, #e0f7f1, #f2fefc, #dbefff, #d6f0f5);
+  background-size: 1400% 1400%;
+  animation: rainbow 20s linear infinite;
+
+  overflow-x: hidden;
+}
+
+main {
+    background-color: white;
+    border-radius: 5px;
+    padding: 25px;
+
+    font-size: small;
 }
 
 td {
