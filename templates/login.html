@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Warehouse Wizard</title>
+    <title>Login - {{TITLE}} - Warehouse Wizard</title>
 
     <!-- Import Barebones CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='barebones.css') }}">
 
     <!-- Import font edits -->
     <link rel="stylesheet" href="{{ url_for('static', filename='font-handling.css') }}">
+
+
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicons/favicon.ico') }}">
 </head>
 <body style="display: flex; justify-content: center; align-items: center; height: 100vh; overflow-y: hidden;">
     <div style="max-width: 400px; width: fit-content; background-color: white; margin: 0 auto; padding: 15px; border-radius: 5px;">
@@ -25,8 +28,10 @@
           <input id="password" type="password" name="password" required style="max-width: 300px; width: 100%;" placeholder="Password">
 
           <button type="submit" style="max-width: 300px; width: 100%;">Login</button>
-        </form>
 
+          <br>
+          <p>Developed by <a href="https://github.com/Qwirdle" target="_blank" rel="noopener noreferrer">Qwirdle</a></p>
+        </form>
     </div>
 </body>
 </html>
