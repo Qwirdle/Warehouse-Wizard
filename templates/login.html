@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - {{TITLE}} - Warehouse Wizard</title>
 
-    <!-- Import Barebones CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='barebones.css') }}">
-
-    <!-- Import font edits -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='font-handling.css') }}">
+    <!-- Import Spectre.CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='spectre.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='spectre-exp.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='spectre-icons.min.css') }}">
 
 
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicons/favicon.ico') }}">
@@ -20,14 +19,14 @@
         <br>
 
         <h2 style="text-align: center;">{{ TITLE}}</h2>
-        <form method="POST" style="display: flex; flex-direction: column; align-items: center;">
-          <label for="username">Username:</label>
-          <input id="username" type="text" name="username" required style="max-width: 300px; width: 100%;" placeholder="Username">
+        <form method="POST" style="display: flex; flex-direction: column; align-items: center;" class="form-group">
+          <label for="username" class="form-label">Username:</label>
+          <input id="username" type="text" name="username" required style="max-width: 300px; width: 100%;" placeholder="Username" class="form-input">
 
-          <label for="password">Password:</label>
-          <input id="password" type="password" name="password" required style="max-width: 300px; width: 100%;" placeholder="Password">
-
-          <button type="submit" style="max-width: 300px; width: 100%;">Login</button>
+          <label for="password" class="form-label">Password:</label>
+          <input id="password" type="password" name="password" required style="max-width: 300px; width: 100%;" placeholder="Password" class="form-input">
+            <br>
+          <button type="submit" style="max-width: 300px; width: 100%;" class="btn btn-primary">Login</button>
 
           <br>
           <p>Developed by <a href="https://github.com/Qwirdle" target="_blank" rel="noopener noreferrer">Qwirdle</a></p>

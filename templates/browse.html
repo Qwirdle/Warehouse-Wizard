@@ -4,95 +4,91 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- URL changes if searching/browsing -->
     {% if not SEARCHING %}
         <title>Page {{ PAGE_NUM }} - {{ TITLE }} - Warehouse Wizard</title>
     {% else %}
         <title>Searching "{{ PROMPT }}" - {{ TITLE }} - Warehouse Wizard</title>
     {% endif %}
 
-    <!-- Import Barebones CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='barebones.css') }}">
-
-    <!-- Import font edits -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='font-handling.css') }}">
-
-
+    <!-- Import Spectre.CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='spectre.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='spectre-exp.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='spectre-icons.min.css') }}">
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicons/favicon.ico') }}">
 </head>
 <body>
 
-
-    <main style="display: flex; justify-content: center; align-items: center; display: flex; flex-direction: column;">
-        <h2>Browse Items</h2>
-
-        <br>
-
-        <form method="POST" style="display: flex; flex-direction: column; align-items: center;">
-          <input id="username" type="text" name="query" required style="max-width: 300px; width: 100%;" placeholder="Search here...">
-
-          <button type="submit" style="max-width: 300px; width: 100%; display: hidden;">Search</button>
+    <!-- Header Section -->
+    <header class="navbar" style="padding: 10px;">
+      <section class="navbar-section">
+      </section>
+      <section class="navbar-section">
+        <form method="POST">
+          <div class="input-group input-inline">
+            <input class="form-input" type="text" name="query" required placeholder="Search here...">
+            <button class="btn btn-primary input-group-btn" type="submit">Search</button>
+          </div>
         </form>
+      </section>
+    </header>
+
+
+    <!-- Main Content Section -->
+    <main style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
 
         {% if not SEARCHING %}
             <div>
-            {% if PAGE_NUM > 1 %}
-                <a href="{{ url_for('browse', page=PAGE_NUM-1) }}">Last Page</a>
-            {% else %}
-                <span style="color: rgb(22, 22, 22);">Last Page</span>
-            {% endif %}
-            -
-            {% if PAGE_NUM < TOTAL_PAGES %}
-                <a href="{{ url_for('browse', page=PAGE_NUM+1) }}">Next Page</a>
-            {% else %}
-                <span style="color: rgb(22, 22, 22);">Next Page</span>
-            {% endif %}
+                {% if PAGE_NUM > 1 %}
+                    <a href="{{ url_for('browse', page=PAGE_NUM-1) }}">Last Page</a>
+                {% else %}
+                    <span style="color: rgb(22, 22, 22);">Last Page</span>
+                {% endif %}
+                -
+                {% if PAGE_NUM < TOTAL_PAGES %}
+                    <a href="{{ url_for('browse', page=PAGE_NUM+1) }}">Next Page</a>
+                {% else %}
+                    <span style="color: rgb(22, 22, 22);">Next Page</span>
+                {% endif %}
             </div>
 
             <p>Page {{ PAGE }} / {{ TOTAL_PAGES }}</p>
         {% else %}
+            <h4>Showing results for <b>"{{ PROMPT }}"</b></h4>
             <div>
-                <a href="{{ url_for('browse', page=1) }}">Return</a>
+                <a href="{{ url_for('browse', page=1) }}"><h5>Return</h5></a>
             </div>
-
-            <p>Showing results for <b>"{{ PROMPT }}"</b></p>
         {% endif %}
 
-
         <div style="max-width: 1000px; width: 100%;">
-            <table class="u-full-width">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Added At</th>
-                    <th>Checked Out By</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in DISPLAY_INVENTORY %}
+            <table class="table table-striped table-hover">
+                <thead>
                     <tr>
-                        <td>{{item.id}}</td>
-                        <td>{{item.name}}</td>
-                        <td title="{{item.description}}" class="has-title">{{item.description}}</td>
-                        <td>{{item.created_at}}</td>
-                        <td title="{{item.user_id}}" class="has-title">{{item.user_id}}</td>
-                        <td><a href="" style="text-decoration: none;">Checkout</a></td>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Added At</th>
+                        <th>Checked Out By</th>
+                        <th></th>
                     </tr>
-                {% endfor %}
-            </tbody>
-
-
+                </thead>
+                <tbody>
+                    {% for item in DISPLAY_INVENTORY %}
+                        <tr>
+                            <td>{{item.id}}</td>
+                            <td class="tooltip" data-tooltip="{{ item.name }}">{{item.name}}</td>
+                            <td class="tooltip" data-tooltip="{{ item.description }}">{{item.description}}</td>
+                            <td>{{item.created_at}}</td>
+                            <td class="tooltip" data-tooltip="{{ item.user_id }}"{{item.user_id}}</td>
+                            <td><a href="" style="text-decoration: none;">Checkout</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
             </table>
         </div>
 
         <br>
-
-        <p>Developed by <a href="https://github.com/Qwirdle" target="_blank" rel="noopener noreferrer">Qwirdle</a></p>
+        <p>© {{ CURRENT_YEAR }} <a href="https://github.com/Qwirdle" target="_blank" rel="noopener noreferrer">Qwirdle</a>. Licensed under the MIT License.</p>
     </main>
 
-</table>
 </body>
 </html>
