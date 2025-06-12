@@ -19,9 +19,19 @@
 <body>
 
     <!-- Header Section -->
-    <header class="navbar" style="padding: 10px;">
+    <header class="navbar" style="padding: 4px;">
       <section class="navbar-section">
       </section>
+      <section class="navbar-center" style="display: flex; align-items: center;">
+          <h4 style="margin: 0;">
+            {% if not SEARCHING %}
+                {{ TITLE }}
+            {% else %}
+                Showing results for <b>"{{ PROMPT }}"</b>
+            {% endif %}
+          </h4>
+        </section>
+
       <section class="navbar-section">
         <form method="POST">
           <div class="input-group input-inline">
@@ -29,6 +39,11 @@
             <button class="btn btn-primary input-group-btn" type="submit">Search</button>
           </div>
         </form>
+        <p>  </p>
+        <form action="{{ url_for('logout') }}" method="get">
+            <button class="btn btn-primary" type="submit">Logout</button>
+        </form>
+        <p> </p>
       </section>
     </header>
 
@@ -53,9 +68,8 @@
 
             <p>Page {{ PAGE }} / {{ TOTAL_PAGES }}</p>
         {% else %}
-            <h4>Showing results for <b>"{{ PROMPT }}"</b></h4>
             <div>
-                <a href="{{ url_for('browse', page=1) }}"><h5>Return</h5></a>
+                <a href="javascript:history.back()"><p>Return<p></a>
             </div>
         {% endif %}
 

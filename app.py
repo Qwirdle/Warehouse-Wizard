@@ -115,4 +115,5 @@ if __name__ == '__main__':
         if not db.session.query(User.id).first(): # Only seed if unseeded
             seedChems()
     
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    # app.run(host="0.0.0.0", port=5000, debug=True) # Activate for network access
+    app.run(debug=True)
